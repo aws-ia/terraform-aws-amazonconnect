@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 data "aws_connect_queue" "example" {
   instance_id = module.amazon_connect.instance.id
   name        = "BasicQueue"

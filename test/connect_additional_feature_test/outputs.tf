@@ -4,5 +4,6 @@ security profile as it contains list and was throwing the error "Type switching 
 */
 
 output "amazon_connect" {
-  value = { for k, v in module.amazon_connect : k => v if !contains(["users", "security_profiles"], k) }
+  value       = { for k, v in module.amazon_connect : k => v if !contains(["users", "security_profiles"], k) }
+  description = "Amazon Connect module outputs"
 }

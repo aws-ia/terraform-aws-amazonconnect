@@ -7,11 +7,11 @@ locals {
       media_concurrencies = [
         {
           channel     = "VOICE"
-          concurrency = 1 // Always 1 for Voice
+          concurrency = 1
         },
         {
           channel     = "CHAT"
-          concurrency = 2 // between 1 and 5
+          concurrency = 2
         }
       ]
     }
