@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 terraform {
-  required_version = ">= 1.3"
+  required_version = ">= 1.2"
 
   required_providers {
     aws = {
