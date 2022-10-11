@@ -1,0 +1,143 @@
+{
+    "Version": "2019-10-30",
+    "StartAction": "c94cb722-33fc-4bce-9bb5-589f0bcaaeef",
+    "Metadata": {
+        "entryPointPosition": {
+            "x": 20,
+            "y": 20
+        },
+        "snapToGrid": false,
+        "ActionMetadata": {
+            "c94cb722-33fc-4bce-9bb5-589f0bcaaeef": {
+                "position": {
+                    "x": 238,
+                    "y": 102
+                }
+            },
+            "a84352ae-03da-4460-a7ac-8804c4790040": {
+                "position": {
+                    "x": 585,
+                    "y": 120
+                },
+                "dynamicMetadata": {},
+                "useDynamic": false
+            },
+            "c3a2d449-38d5-4ee9-a144-a029f1c8c157": {
+                "position": {
+                    "x": 939,
+                    "y": 408
+                },
+                "useDynamic": false
+            },
+            "e5716fc3-6c37-4490-b728-0c8d3f8b88c8": {
+                "position": {
+                    "x": 1555,
+                    "y": 183
+                }
+            },
+            "1e837f30-776e-427a-9250-1adab51d181c": {
+                "position": {
+                    "x": 924,
+                    "y": 158
+                },
+                "useDynamic": true
+            },
+            "1e14d5e6-41b0-4c16-bae1-043738245baa": {
+                "position": {
+                    "x": 1197,
+                    "y": 299
+                },
+                "useDynamic": false
+            }
+        }
+    },
+    "Actions": [
+        {
+            "Identifier": "c94cb722-33fc-4bce-9bb5-589f0bcaaeef",
+            "Parameters": {
+                "FlowLoggingBehavior": "Enabled"
+            },
+            "Transitions": {
+                "NextAction": "a84352ae-03da-4460-a7ac-8804c4790040",
+                "Errors": [],
+                "Conditions": []
+            },
+            "Type": "UpdateFlowLoggingBehavior"
+        },
+        {
+            "Identifier": "a84352ae-03da-4460-a7ac-8804c4790040",
+            "Parameters": {
+                "LambdaFunctionARN": "${lambda_arn}",
+                "InvocationTimeLimitSeconds": "3"
+            },
+            "Transitions": {
+                "NextAction": "1e837f30-776e-427a-9250-1adab51d181c",
+                "Errors": [
+                    {
+                        "NextAction": "c3a2d449-38d5-4ee9-a144-a029f1c8c157",
+                        "ErrorType": "NoMatchingError"
+                    }
+                ],
+                "Conditions": []
+            },
+            "Type": "InvokeLambdaFunction"
+        },
+        {
+            "Identifier": "c3a2d449-38d5-4ee9-a144-a029f1c8c157",
+            "Parameters": {
+                "Text": "There was an error with the return prompt Lambda. Please try again later."
+            },
+            "Transitions": {
+                "NextAction": "e5716fc3-6c37-4490-b728-0c8d3f8b88c8",
+                "Errors": [
+                    {
+                        "NextAction": "1e14d5e6-41b0-4c16-bae1-043738245baa",
+                        "ErrorType": "NoMatchingError"
+                    }
+                ],
+                "Conditions": []
+            },
+            "Type": "MessageParticipant"
+        },
+        {
+            "Identifier": "e5716fc3-6c37-4490-b728-0c8d3f8b88c8",
+            "Type": "DisconnectParticipant",
+            "Parameters": {},
+            "Transitions": {}
+        },
+        {
+            "Identifier": "1e837f30-776e-427a-9250-1adab51d181c",
+            "Parameters": {
+                "Text": "$.External.prompt"
+            },
+            "Transitions": {
+                "NextAction": "e5716fc3-6c37-4490-b728-0c8d3f8b88c8",
+                "Errors": [
+                    {
+                        "NextAction": "1e14d5e6-41b0-4c16-bae1-043738245baa",
+                        "ErrorType": "NoMatchingError"
+                    }
+                ],
+                "Conditions": []
+            },
+            "Type": "MessageParticipant"
+        },
+        {
+            "Identifier": "1e14d5e6-41b0-4c16-bae1-043738245baa",
+            "Parameters": {
+                "Text": "There was an error playing the prompt returned by Lambda."
+            },
+            "Transitions": {
+                "NextAction": "e5716fc3-6c37-4490-b728-0c8d3f8b88c8",
+                "Errors": [
+                    {
+                        "NextAction": "e5716fc3-6c37-4490-b728-0c8d3f8b88c8",
+                        "ErrorType": "NoMatchingError"
+                    }
+                ],
+                "Conditions": []
+            },
+            "Type": "MessageParticipant"
+        }
+    ]
+}
