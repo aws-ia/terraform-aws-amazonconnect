@@ -1,0 +1,122 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "bf85bd5c-8cd3-4135-9f1b-30bdb914eeb6",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 20,
+      "y": 20
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "8c760cd1-ac5c-43b2-a20b-94787495b8c9": {
+        "position": {
+          "x": 966.3333740234375,
+          "y": 366.3500061035156
+        }
+      },
+      "84ceaa1a-834e-4c84-a792-e8b08d746343": {
+        "position": {
+          "x": 714,
+          "y": 178
+        },
+        "useDynamic": false
+      },
+      "2762e0a2-18a8-41df-861e-9b26bb32d133": {
+        "position": {
+          "x": 701,
+          "y": 488
+        },
+        "useDynamic": false
+      },
+      "bf85bd5c-8cd3-4135-9f1b-30bdb914eeb6": {
+        "position": {
+          "x": 159.33334350585938,
+          "y": 333.8500061035156
+        }
+      },
+      "f02bb569-c225-4b2c-9de6-28487c981eaa": {
+        "position": {
+          "x": 433.3333435058594,
+          "y": 201.85000610351562
+        },
+        "useDynamic": false,
+        "queue": {
+          "id": "${support_queue_arn}",
+          "text": "terraform-test-queue-sales"
+        }
+      }
+    }
+  },
+  "Actions": [
+    {
+      "Identifier": "8c760cd1-ac5c-43b2-a20b-94787495b8c9",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "84ceaa1a-834e-4c84-a792-e8b08d746343",
+      "Transitions": {
+        "NextAction": "8c760cd1-ac5c-43b2-a20b-94787495b8c9",
+        "Errors": [
+          {
+            "NextAction": "8c760cd1-ac5c-43b2-a20b-94787495b8c9",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "8c760cd1-ac5c-43b2-a20b-94787495b8c9",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "TransferContactToQueue"
+    },
+    {
+      "Identifier": "2762e0a2-18a8-41df-861e-9b26bb32d133",
+      "Parameters": {
+        "Text": "Unable to set working queue"
+      },
+      "Transitions": {
+        "NextAction": "8c760cd1-ac5c-43b2-a20b-94787495b8c9",
+        "Errors": [
+          {
+            "NextAction": "8c760cd1-ac5c-43b2-a20b-94787495b8c9",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "bf85bd5c-8cd3-4135-9f1b-30bdb914eeb6",
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Transitions": {
+        "NextAction": "f02bb569-c225-4b2c-9de6-28487c981eaa",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "UpdateFlowLoggingBehavior"
+    },
+    {
+      "Identifier": "f02bb569-c225-4b2c-9de6-28487c981eaa",
+      "Parameters": {
+        "QueueId": "${support_queue_arn}"
+      },
+      "Transitions": {
+        "NextAction": "84ceaa1a-834e-4c84-a792-e8b08d746343",
+        "Errors": [
+          {
+            "NextAction": "2762e0a2-18a8-41df-861e-9b26bb32d133",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "UpdateContactTargetQueue"
+    }
+  ]
+}

@@ -1,0 +1,302 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "7b32763b-3c5c-49a2-9fa5-2328a5aa825a",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 28.75,
+      "y": 15
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "2c27f89c-81c0-4110-98c3-db2e2fa15ab7": {
+        "position": {
+          "x": 1540,
+          "y": 324
+        }
+      },
+      "8cd02574-cbfa-4deb-9dd7-8a7298d6c094": {
+        "position": {
+          "x": 1025,
+          "y": 706
+        },
+        "useDynamic": false
+      },
+      "683156f6-12af-4093-9a12-4fcada9e39a6": {
+        "position": {
+          "x": 736,
+          "y": 514
+        },
+        "useDynamic": false,
+        "queue": {
+          "id": "${support_queue_arn}",
+          "text": "terraform-test-queue-support"
+        }
+      },
+      "47480c3a-fb85-45d3-bcbd-42ded95b3724": {
+        "position": {
+          "x": 1081,
+          "y": 54
+        },
+        "useDynamic": false
+      },
+      "0ada9849-cd1d-485b-bce4-6e620317c4b1": {
+        "position": {
+          "x": 1323,
+          "y": 307
+        },
+        "useDynamic": false
+      },
+      "2bfec059-0c2c-45c2-bc42-dfed3501ca2e": {
+        "position": {
+          "x": 501,
+          "y": 137
+        }
+      },
+      "15f177a3-2dff-4c09-a61f-b7588dc7e606": {
+        "position": {
+          "x": 765,
+          "y": 94
+        },
+        "useDynamic": false,
+        "queue": {
+          "id": "${sales_queue_arn}",
+          "text": "terraform-test-queue-sales"
+        }
+      },
+      "c836969c-bf0b-4208-a694-c21e8f8bac0a": {
+        "position": {
+          "x": 261,
+          "y": 172
+        },
+        "dynamicMetadata": {},
+        "useDynamic": false
+      },
+      "7b32763b-3c5c-49a2-9fa5-2328a5aa825a": {
+        "position": {
+          "x": 19,
+          "y": 179
+        }
+      },
+      "5f7359b1-7293-40a0-9440-d4e4068df41d": {
+        "position": {
+          "x": 34,
+          "y": 413
+        },
+        "conditionMetadata": [
+          {
+            "id": "83a62f6b-ae30-4272-83a7-561283e45d83",
+            "value": "Sales"
+          },
+          {
+            "id": "70bf1f47-b4b4-46d5-93fd-2fb6d48c2d97",
+            "value": "Support"
+          }
+        ],
+        "useDynamic": false,
+        "dynamicMetadata": {},
+        "useLexBotDropdown": true,
+        "useDynamicLexBotArn": false,
+        "lexV2BotName": "${lex_bot_name}"
+      }
+    }
+  },
+  "Actions": [
+    {
+      "Identifier": "2c27f89c-81c0-4110-98c3-db2e2fa15ab7",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "8cd02574-cbfa-4deb-9dd7-8a7298d6c094",
+      "Transitions": {
+        "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+        "Errors": [
+          {
+            "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "2c27f89c-81c0-4110-98c3-db2e2fa15ab7",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "TransferContactToQueue"
+    },
+    {
+      "Identifier": "683156f6-12af-4093-9a12-4fcada9e39a6",
+      "Parameters": {
+        "QueueId": "${support_queue_arn}"
+      },
+      "Transitions": {
+        "NextAction": "8cd02574-cbfa-4deb-9dd7-8a7298d6c094",
+        "Errors": [
+          {
+            "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "UpdateContactTargetQueue"
+    },
+    {
+      "Identifier": "47480c3a-fb85-45d3-bcbd-42ded95b3724",
+      "Transitions": {
+        "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+        "Errors": [
+          {
+            "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "TransferContactToQueue"
+    },
+    {
+      "Identifier": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+      "Parameters": {
+        "Text": "We are not able to take your call right now. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "2c27f89c-81c0-4110-98c3-db2e2fa15ab7",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "2bfec059-0c2c-45c2-bc42-dfed3501ca2e",
+      "Parameters": {},
+      "Transitions": {
+        "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+        "Errors": [
+          {
+            "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "15f177a3-2dff-4c09-a61f-b7588dc7e606",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "True"
+              ]
+            }
+          },
+          {
+            "NextAction": "683156f6-12af-4093-9a12-4fcada9e39a6",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "False"
+              ]
+            }
+          }
+        ]
+      },
+      "Type": "CheckHoursOfOperation"
+    },
+    {
+      "Identifier": "15f177a3-2dff-4c09-a61f-b7588dc7e606",
+      "Parameters": {
+        "QueueId": "${sales_queue_arn}"
+      },
+      "Transitions": {
+        "NextAction": "47480c3a-fb85-45d3-bcbd-42ded95b3724",
+        "Errors": [
+          {
+            "NextAction": "0ada9849-cd1d-485b-bce4-6e620317c4b1",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "UpdateContactTargetQueue"
+    },
+    {
+      "Identifier": "c836969c-bf0b-4208-a694-c21e8f8bac0a",
+      "Parameters": {
+        "LambdaFunctionARN": "${lambda_arn}",
+        "InvocationTimeLimitSeconds": "3"
+      },
+      "Transitions": {
+        "NextAction": "2bfec059-0c2c-45c2-bc42-dfed3501ca2e",
+        "Errors": [
+          {
+            "NextAction": "2bfec059-0c2c-45c2-bc42-dfed3501ca2e",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "InvokeLambdaFunction"
+    },
+    {
+      "Identifier": "7b32763b-3c5c-49a2-9fa5-2328a5aa825a",
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Transitions": {
+        "NextAction": "5f7359b1-7293-40a0-9440-d4e4068df41d",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "UpdateFlowLoggingBehavior"
+    },
+    {
+      "Identifier": "5f7359b1-7293-40a0-9440-d4e4068df41d",
+      "Parameters": {
+        "Text": "Welcome to terraform deployed connect instance, how can I help you?",
+        "LexBot": {
+          "Name": "IntentandRoute",
+          "Region": "us-west-2",
+          "Alias": "$LATEST"
+        }
+      },
+      "Transitions": {
+        "NextAction": "683156f6-12af-4093-9a12-4fcada9e39a6",
+        "Errors": [
+          {
+            "NextAction": "683156f6-12af-4093-9a12-4fcada9e39a6",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "683156f6-12af-4093-9a12-4fcada9e39a6",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "c836969c-bf0b-4208-a694-c21e8f8bac0a",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "Sales"
+              ]
+            }
+          },
+          {
+            "NextAction": "683156f6-12af-4093-9a12-4fcada9e39a6",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "Support"
+              ]
+            }
+          }
+        ]
+      },
+      "Type": "ConnectParticipantWithLexBot"
+    }
+  ]
+}
