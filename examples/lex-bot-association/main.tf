@@ -6,6 +6,9 @@ resource "random_string" "instance_alias" {
 }
 
 module "amazon_connect" {
+  # source  = "aws-ia/amazonconnect/aws"
+  # version = ">= 0.0.1"
+
   source = "../../"
 
   instance_identity_management_type = "CONNECT_MANAGED"

@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 # Amazon Connect Module
 
-This module can be used to deploy an Amazon Connect instance and all supporting resources, such as Hours of Operation, queues, etc (full list below). It also supports passing in an existing instance ID, and creating supporting resources associated to it. Common deployment examples can be found in the [./examples](./examples) directory.
+This module can be used to deploy an Amazon Connect instance and all supporting resources, such as Hours of Operation, queues, etc (full list below). It also supports passing in an existing instance ID, and creating supporting resources associated to it. Common deployment examples can be found in the [./examples](https://github.com/aws-ia/terraform-aws-amazonconnect/tree/main/examples) directory.
 
 **NOTE: At this time, due to limitations in the Amazon Connect API certain operations are not supported, such as deleting a queue. If you have created these resources with Terraform, and wish to destroy the instance, you must first remove them from the Terraform state with `terraform state rm`.**
 
@@ -14,7 +14,7 @@ The example below is the basic usage of this module and will create an Amazon Co
 ```hcl
 module "amazon_connect" {
   source  = "aws-ia/amazonconnect/aws"
-  version = "~> 1.0.0"
+  version = "~> 0.0.1"
 
   instance_identity_management_type = "CONNECT_MANAGED"
   instance_inbound_calls_enabled    = true
@@ -25,13 +25,13 @@ module "amazon_connect" {
 
 ## Usage Examples
 
-* [Simple](./examples/simple/main.tf)
-* [Instance w/ S3 Storage Configuration](./examples/instance-storage-config-s3/main.tf)
-* [Instance w/ Kinesis Storage Configuration](./examples/instance-storage-config-kinesis/main.tf)
-* [Instance w/ Hours of Operations](./examples/hours-of-operations/main.tf)
-* [Instance w/ Queue](./examples/queue/main.tf)
-* [Instance w/ Lex Bot Association](./examples/lex-bot-association/main.tf)
-* [Complete](./examples/complete/main.tf)
+* [Simple](https://github.com/aws-ia/terraform-aws-amazonconnect/tree/main/examples/simple/main.tf)
+* [Instance w/ S3 Storage Configuration](https://github.com/aws-ia/terraform-aws-amazonconnect/tree/main/examples/instance-storage-config-s3/main.tf)
+* [Instance w/ Kinesis Storage Configuration](https://github.com/aws-ia/terraform-aws-amazonconnect/tree/main/examples/instance-storage-config-kinesis/main.tf)
+* [Instance w/ Hours of Operations](https://github.com/aws-ia/terraform-aws-amazonconnect/tree/main/examples/hours-of-operations/main.tf)
+* [Instance w/ Queue](https://github.com/aws-ia/terraform-aws-amazonconnect/tree/main/examples/queue/main.tf)
+* [Instance w/ Lex Bot Association](https://github.com/aws-ia/terraform-aws-amazonconnect/tree/main/examples/lex-bot-association/main.tf)
+* [Complete](https://github.com/aws-ia/terraform-aws-amazonconnect/tree/main/examples/complete/main.tf)
 
 ## Dependent Resources
 
